@@ -27,7 +27,7 @@ public class UserService {
 
         User user = null;
         try{
-            user = userRepo.findByLogin(loginDTO.getUsername());
+            user = userRepo.findByUsername(loginDTO.getUsername());
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -40,12 +40,12 @@ public class UserService {
     }
 
     public User createEmployee(User user){
-        String userName = user.getLogin();
-        if(userRepo.findByLogin(userName) != null){
+        String userName = user.getUsername();
+        if(userRepo.findByUsername(userName) != null){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "user exist!");
         }
 
-        user.getRoles().add(Role.USER);
+        //user.getRoles().add(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (user.getUsername() == null || user.getUsername().isEmpty()) {

@@ -10,25 +10,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="user2")
+@Table(name="user")
 public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
-    private String password;
     private String username;
+    private String password;
     private String name;
+    private String surname;
     private String email;
+    private String phone;
+    private String address;
 
     public User(){}
-    public User(Long id, String login, String password, String username, String name, String email, Set<Role> roles) {
+
+    public User(Long id, String password, String username, String name, String surname, String phone, String address, String email, Set<Role> roles) {
         this.id = id;
-        this.login = login;
         this.password = password;
         this.username = username;
         this.name = name;
+        this.surname = surname;
+        this.phone = phone;
+        this.address = address;
         this.email = email;
         this.roles = roles;
     }
@@ -47,14 +52,6 @@ public class User implements UserDetails {
 
     private Set<Role> roles = new HashSet<>();
 
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
     public String getPassword() {
         return password;
@@ -94,6 +91,30 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     @Override

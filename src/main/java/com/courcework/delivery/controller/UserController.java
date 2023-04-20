@@ -32,12 +32,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    /*@PostMapping("/user")
-    User newUser(@RequestBody User newUser, @RequestParam(value = "role") int role) {
-        newUser.setRole(role); // установка роли для нового пользователя
-        return userRepository.save(newUser);
-    }*/
-
     @PostMapping("/user")
     User newUser(@RequestBody User newUser){
         return userService.createEmployee(newUser);
@@ -60,6 +54,9 @@ public class UserController {
                 .map(user -> {
                     user.setUsername(newUser.getUsername());
                     user.setName(newUser.getName());
+                    user.setSurname(newUser.getSurname());
+                    user.setPhone(newUser.getPhone());
+                    user.setAddress(newUser.getAddress());
                     user.setEmail(newUser.getEmail());
                     return userRepository.save(user);
                 }).orElseThrow(()->new UserNotFoundException(id));
