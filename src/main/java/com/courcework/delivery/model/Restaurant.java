@@ -1,7 +1,8 @@
 package com.courcework.delivery.model;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name="restaurant")
@@ -13,6 +14,10 @@ public class Restaurant {
     private String address;
     private String phone;
     private double stars;
+
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Dish> dishes;
+
 
     public Restaurant(){}
 
