@@ -1,7 +1,7 @@
 package com.courcework.delivery.service;
 
+import com.courcework.delivery.exception.UserNotFoundException;
 import com.courcework.delivery.model.LoginDTO;
-import com.courcework.delivery.model.Role;
 import com.courcework.delivery.model.User;
 import com.courcework.delivery.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +39,11 @@ public class UserService {
         return null;
     }
 
+    public User getUserById(Long id) throws UserNotFoundException {
+        return userRepo.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
     public User createEmployee(User user){
         String userName = user.getUsername();
         if(userRepo.findByUsername(userName) != null){
@@ -54,5 +59,6 @@ public class UserService {
 
         return userRepo.save(user);
     }
+    
 
 }

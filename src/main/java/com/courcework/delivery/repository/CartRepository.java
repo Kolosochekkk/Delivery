@@ -1,5 +1,6 @@
 package com.courcework.delivery.repository;
 
+import com.courcework.delivery.model.Cart;
 import com.courcework.delivery.model.Dish;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @EnableJpaRepositories
 @Repository
-public interface DishRepository extends JpaRepository<Dish,Long> {
-    List<Dish> findByRestaurantId(Long restaurantId);
+public interface CartRepository  extends JpaRepository<Cart,Long> {
+    List<Cart> findByUserId(Long userId);
+
 }

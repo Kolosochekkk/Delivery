@@ -14,6 +14,8 @@ public class Restaurant {
     private String address;
     private String phone;
     private double stars;
+    private String photo;
+
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Dish> dishes;
@@ -21,12 +23,13 @@ public class Restaurant {
 
     public Restaurant(){}
 
-    public Restaurant(Long id, String name, String phone, String address, double stars) {
+    public Restaurant(Long id, String name, String phone, String address, double stars, String photo) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.stars = stars;
+        this.photo = photo;
     }
 
     public Long getId() {
@@ -67,5 +70,20 @@ public class Restaurant {
 
     public void setStars(double stars) {
         this.stars = stars;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (photo == null || id == null) return null;
+
+        return "/restaurant-photo/" + id + "/" + photo;
     }
 }

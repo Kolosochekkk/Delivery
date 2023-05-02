@@ -7,7 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.UUID;
 
+
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -18,12 +23,25 @@ public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
-    public List<Restaurant> getAllRestaurants(){
-        return restaurantRepository.findAll();
+    public List<Restaurant> getAllRestaurants() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return restaurants;
     }
 
-    public Restaurant createRestaurant(Restaurant restaurant) {
-        return restaurantRepository.save(restaurant);
+    public Restaurant newRestaurant(Restaurant restaurant, MultipartFile file) throws IOException {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        restaurant.setPhoto(fileName);
+
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+
+        String uploadDir = "restaurant-photo/" + savedRestaurant.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, file);
+
+        return savedRestaurant;
+    }
+
+    public Restaurant save(Restaurant object) {
+        return restaurantRepository.save(object);
     }
 
     public Restaurant getRestaurantById(Long id) throws RestaurantNotFoundException {
@@ -31,16 +49,21 @@ public class RestaurantService {
                 .orElseThrow(() -> new RestaurantNotFoundException(id));
     }
 
-    public Restaurant updateRestaurant(Restaurant newRestaurant, Long id) throws RestaurantNotFoundException {
+    public Restaurant update(Restaurant newRestaurant, Long id) throws RestaurantNotFoundException {
         return restaurantRepository.findById(id)
-                .map(user -> {
-                    user.setName(newRestaurant.getName());
-                    user.setPhone(newRestaurant.getPhone());
-                    user.setAddress(newRestaurant.getAddress());
-                    user.setStars(newRestaurant.getStars());
-                    return restaurantRepository.save(user);
+                .map(restaurant -> {
+                    restaurant.setName(newRestaurant.getName());
+                    restaurant.setPhone(newRestaurant.getPhone());
+                    restaurant.setAddress(newRestaurant.getAddress());
+                    restaurant.setStars(newRestaurant.getStars());
+                    restaurant.setPhoto(newRestaurant.getPhoto());
+
+                    return restaurantRepository.save(restaurant);
+
                 }).orElseThrow(() -> new RestaurantNotFoundException(id));
     }
+
+
 
     public String deleteRestaurant(Long id) throws RestaurantNotFoundException {
         if (!restaurantRepository.existsById(id)) {
