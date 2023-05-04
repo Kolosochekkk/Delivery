@@ -46,6 +46,7 @@ public class CartService {
                     cart.setNumber(newCart.getNumber());
                     cart.setUser(newCart.getUser());
                     cart.setDish(newCart.getDish());
+                    cart.setRestaurant(newCart.getRestaurant());
 
                     return cartRepository.save(cart);
 

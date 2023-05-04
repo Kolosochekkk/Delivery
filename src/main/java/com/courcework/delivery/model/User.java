@@ -28,6 +28,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Cart> carts;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
     public User(){}
 
     public User(Long id, String password, String username, String name, String surname, String phone, String address, String email, Set<Role> roles) {

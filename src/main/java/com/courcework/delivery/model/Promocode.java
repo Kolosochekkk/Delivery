@@ -10,14 +10,14 @@ public class Promocode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int code;
-    private double summ;
+    private double discount;
 
     public Promocode(){}
 
-    public Promocode(Long id, int code, double summ) {
+    public Promocode(Long id, int code, double discount) {
         this.id = id;
         this.code = code;
-        this.summ = summ;
+        this.discount = discount;
     }
 
     public Long getId() {
@@ -36,12 +36,12 @@ public class Promocode {
         this.code = code;
     }
 
-    public double getSumm() {
-        return summ;
+    public double getDiscount() {
+        return discount;
     }
 
-    public void setSumm(double summ) {
-        this.summ = summ;
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }
 

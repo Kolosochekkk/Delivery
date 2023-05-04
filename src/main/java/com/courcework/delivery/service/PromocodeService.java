@@ -44,7 +44,7 @@ public class PromocodeService {
         return promocodeRepository.findById(id)
                 .map(promocode -> {
                     promocode.setCode(newPromocode.getCode());
-                    promocode.setSumm(newPromocode.getSumm());
+                    promocode.setDiscount(newPromocode.getDiscount());
 
                     return promocodeRepository.save(promocode);
 

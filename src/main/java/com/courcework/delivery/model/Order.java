@@ -3,32 +3,30 @@ package com.courcework.delivery.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="cart")
-public class Cart {
+@Table(name="orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int number;
+    private double total;
+    private String status;
 
 
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "id_dish")
-    private Dish dish;
-
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "id_restaurant")
-    private Restaurant restaurant;
+    private Restaurant restaurant;*/
 
-    public Cart(){}
+    public Order(){}
 
-    public Cart(Long id, int number) {
+    public Order(Long id, double total, String status) {
         this.id = id;
-        this.number = number;
+        this.total = total;
+        this.status = status;
     }
 
     public Long getId() {
@@ -39,14 +37,21 @@ public class Cart {
         this.id = id;
     }
 
-    public int getNumber() {
-        return number;
+    public double getTotal() {
+        return total;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setTotal(double total) {
+        this.total = total;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public User getUser() {
         return user;
@@ -56,19 +61,11 @@ public class Cart {
         this.user = user;
     }
 
-    public Dish getDish() {
-        return dish;
-    }
-
-    public void setDish(Dish dish) {
-        this.dish = dish;
-    }
-
-    public Restaurant getRestaurant() {
+   /* public Restaurant getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }
+    }*/
 }
